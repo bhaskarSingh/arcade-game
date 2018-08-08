@@ -15,7 +15,7 @@ class Enemy{
     // Update the enemy's position, required method for game
     // Parameter: dt, a time delta between ticks
     update(dt){
-
+        this.x >= 400 ? this.x = 0 : this.x += (Math.random() * 500) * dt;
     }
 
     // Draw the enemy on the screen, required method for game
