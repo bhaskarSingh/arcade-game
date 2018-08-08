@@ -15,7 +15,12 @@ class Enemy{
     // Update the enemy's position, required method for game
     // Parameter: dt, a time delta between ticks
     update(dt){
-        this.x >= 400 ? this.x = 0 : this.x += (Math.random() * 500) * dt;
+        this.x >= 400 ? this.x = 0 : this.x += Math.round((Math.random() * 500)) * dt
+
+        //check for player & enemy collision, if they collide reset the player to initial position
+        if((this.x + 50 > player.x && this.x < player.x && this.y === player.y)){
+            player.reset();
+        }
     }
 
     // Draw the enemy on the screen, required method for game
@@ -64,6 +69,11 @@ class Player{
             case 'left': this.x !== LEFT_X ?  this.x -= 100: this.x;
         }
         console.log(this.x, this.y);
+    }
+
+    reset(){
+        this.x = 200;
+        this.y = 415;
     }
 }
 
