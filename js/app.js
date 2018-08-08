@@ -24,7 +24,44 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+class Player{
+    constructor(x, y){
+        this.player = 'images/char-boy.png';
+        this.x = x;
+        this.y = y;
+    }
 
+    update(){
+
+    }
+
+    render(){
+        ctx.drawImage(Resources.get(this.player), this.x , this.y );
+    }
+
+    handleInput(key){
+        //Edge values for player movements for grid layout of 505 by 606
+        const RIGHT_X = 400, LEFT_X = 0, TOP_Y = -35, DOWN_Y = 415;
+        /**
+         * Move the player respective of keypresses if it isn't going
+         * out of the game (i.e canvas layout)
+         */
+        switch(key){
+            case 'up':  this.y !== TOP_Y ?  this.y -= 90: this.y;
+                break;
+            case 'down': this.y !== DOWN_Y ?  this.y += 90: this.y;
+                break;
+            case 'right': this.x !== RIGHT_X ?  this.x += 100: this.x;
+                break;
+            case 'left': this.x !== LEFT_X ?  this.x -= 100: this.x;
+        }
+        console.log(this.x, this.y);
+    }
+}
+
+const player = new Player(200, 415);
+const e1 = new Enemy();
+const allEnemies = [e1];
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -41,6 +78,6 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     };
-
+    console.log(allowedKeys[e.keyCode]);
     player.handleInput(allowedKeys[e.keyCode]);
 });
