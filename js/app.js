@@ -19,6 +19,13 @@ class Enemy{
 
         //check for player & enemy collision, if they collide reset the player to initial position
         if((this.x + 30 > player.x && this.x < player.x && this.y === player.y)){
+            if(player.lives === 1){
+                console.log('game over');
+            }{
+                player.lives -= 1;
+                $('.lives > i:last-child').remove();
+            }
+            console.log(player.lives + 'lives');
             player.reset();
         }
     }
@@ -37,10 +44,28 @@ class Player{
         this.avatar = 'images/char-boy.png';
         this.x = x;
         this.y = y;
+        this.lives = 3;
+        this.winCount = 0;
     }
 
     update(){
-        
+        if(this.numOfTimesReachedRiver() === true){
+            this.winCounter();
+            console.log(this.winCount);
+        }
+    }
+
+    numOfTimesReachedRiver(){
+        const TOP_Y = -35;
+        if(this.y === TOP_Y && (this.x >= 0 & this.x <= 400)){
+            console.log('reached river');
+            this.reset();
+            return true;
+        }
+    }
+
+    winCounter(){
+        this.winCount += 1;
     }
 
     imageUrl(url){
