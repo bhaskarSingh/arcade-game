@@ -15,10 +15,10 @@ class Enemy{
     // Update the enemy's position, required method for game
     // Parameter: dt, a time delta between ticks
     update(dt){
-        this.x >= 400 ? this.x = 0 : this.x += Math.round((Math.random() * 500)) * dt
+        this.x >= 400 ? this.x = -50 : this.x += Math.round((Math.random() * 500)) * dt
 
         //check for player & enemy collision, if they collide reset the player to initial position
-        if((this.x + 50 > player.x && this.x < player.x && this.y === player.y)){
+        if((this.x + 30 > player.x && this.x < player.x && this.y === player.y)){
             player.reset();
         }
     }
@@ -78,9 +78,9 @@ class Player{
 }
 
 const player = new Player(200, 415);
-const e1 = new Enemy(0, 235);
-const e2 = new Enemy(0, 145);
-const e3 = new Enemy(0, 55);
+const e1 = new Enemy(-50, 235);
+const e2 = new Enemy(-50, 145);
+const e3 = new Enemy(-50, 55);
 
 const allEnemies = [e1, e2, e3];
 
