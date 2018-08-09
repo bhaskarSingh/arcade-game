@@ -34,18 +34,22 @@ class Enemy{
  */
 class Player{
     constructor(x = 0, y = 0){
-        this.player = 'images/char-boy.png';
+        this.avatar = 'images/char-boy.png';
         this.x = x;
         this.y = y;
     }
 
     update(){
+        
+    }
 
+    imageUrl(url){
+        this.avatar = url;
     }
 
     //Draw player on the screen
     render(){
-        ctx.drawImage(Resources.get(this.player), this.x , this.y );
+        ctx.drawImage(Resources.get(this.avatar), this.x , this.y );
     }
 
     /**

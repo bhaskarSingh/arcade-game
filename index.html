@@ -3,9 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>Effective JavaScript: Frogger</title>
+     <!-- Compiled and minified Materialize CSS -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/image-picker/0.2.4/image-picker.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+    <!-- Game Starter Modal Structure -->
+    <div id="gameStarter" class="modal">
+        <div class="modal-content">
+            <h4>Welcome to Arcade Classic Game</h4>
+            <h5>Select your avatar</h5>
+            <select class="image-picker" >
+                <option data-img-src="images/char-boy.png" value="1">Char Boy</option>
+                <option data-img-src="images/char-horn-girl.png" value="2">Char Horn Girl</option>
+                <option data-img-src="images/char-pink-girl.png" value="3">Char Pink Girl</option>
+                <option data-img-src="images/char-princess-girl.png" value="4">Char Princess Girl</option>
+            </select>
+        </div>
+        <!-- Instructions on how to play the game -->
+        <ul class="collapsible">
+            <li>
+                <div class="collapsible-header">Instructions on how to play the game</div>
+                <div class="collapsible-body">
+                    <span>
+                    The game will be of 30 seconds and in that, you have to reach to the riverside as
+                    many time(s) you can & atleast 3 times to win the game and you will have 3 lives and
+                    there will be few gems, on taking them successfully you will get an extra life.
+                    </span>
+                </div>
+            </li>
+        </ul>
+
+        <div class="modal-footer">
+            <a href="#" class="modal-close waves-effect waves-green btn-flat center">Start Game</a>
+        </div>
+    </div>
+
+    <!-- JQuery library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Compiled and minified Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+    <!-- Image picker javascript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/image-picker/0.2.4/image-picker.min.js" ></script>
+    <!-- Materialize javascript -->
+    <script src="js/materialize-app.js" ></script>
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>
