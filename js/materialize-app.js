@@ -13,7 +13,9 @@ $('#timer').timer({
     countdown: true,
     duration: '30s',    	// This will start the countdown from 3 mins 40 seconds
     callback: function() {	// This will execute after the duration has elapsed
-    	console.log('Time up!');
+        console.log('Time up!');
+        $('#gameOver').css('display', 'block');
+        $('.times-up').text('Times Up!');
     }
 });
 //Change Avatar
@@ -43,4 +45,10 @@ $('select').on('change',function(){
 //close the starter modal
 $('.modal-close').click(function(){
     $('#gameStarter').css('display', 'none');
+})
+
+//reset game
+$('.try-again-game').click(function(){
+    $('#gameOver').css('display', 'none');
+    // add reset game functionality here
 })

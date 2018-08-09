@@ -21,6 +21,8 @@ class Enemy{
         if((this.x + 30 > player.x && this.x < player.x && this.y === player.y)){
             if(player.lives === 1){
                 console.log('game over');
+                $('#gameOver').css('display', 'block');
+                $('.no-life').text('No life left');
             }{
                 player.lives -= 1;
                 $('.lives > i:last-child').remove();
@@ -49,13 +51,13 @@ class Player{
     }
 
     update(){
-        if(this.numOfTimesReachedRiver() === true){
+        if(this.ReachedRiver()){
             this.winCounter();
-            console.log(this.winCount);
+            $('#won').css('display', 'block');
         }
     }
 
-    numOfTimesReachedRiver(){
+    ReachedRiver(){
         const TOP_Y = -35;
         if(this.y === TOP_Y && (this.x >= 0 & this.x <= 400)){
             console.log('reached river');
