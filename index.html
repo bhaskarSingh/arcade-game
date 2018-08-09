@@ -5,10 +5,22 @@
     <title>Effective JavaScript: Frogger</title>
      <!-- Compiled and minified Materialize CSS -->
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+     <!--Material icons -->
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/image-picker/0.2.4/image-picker.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+    <div>
+        <h4 class="lives">Lives :
+            <i class="material-icons">favorite</i>
+            <i class="material-icons">favorite</i>
+            <i class="material-icons">favorite</i>
+        </h4>
+        <span>Timer: <div id="timer"></div> </span>
+        <a class="change-avatar waves-effect waves-light btn blue">Change Avatar</a>
+    </div>
 
     <!-- Game Starter Modal Structure -->
     <div id="gameStarter" class="modal">
@@ -43,6 +55,8 @@
 
     <!-- JQuery library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Timer plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timer.jquery/0.7.0/timer.jquery.js"></script>
     <!-- Compiled and minified Materialize JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
     <!-- Image picker javascript -->

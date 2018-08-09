@@ -1,12 +1,25 @@
 
 //popup game starter modal
 $('#gameStarter').css('display', 'block');
-
+$('#gameStarter').modal();
 //Initialize game instructions guidance collapsible
 $('.collapsible').collapsible();
 
 //Initialize image picker plugin
 $('select').imagepicker();
+
+//Game Timer
+$('#timer').timer({
+    countdown: true,
+    duration: '30s',    	// This will start the countdown from 3 mins 40 seconds
+    callback: function() {	// This will execute after the duration has elapsed
+    	console.log('Time up!');
+    }
+});
+//Change Avatar
+$('.change-avatar').click(function(){
+    $('#gameStarter').css('display', 'block');
+})
 
 //set avatar according to user choice
 $('select').on('change',function(){
