@@ -21,8 +21,8 @@ class Enemy{
         if((this.x + 30 > player.x && this.x < player.x && this.y === player.y)){
             if(player.lives === 1){
                 console.log('game over');
-                $('#gameOver').css('display', 'block');
-                $('.no-life').text('No life left');
+                player.lives -= 1;
+                new Modal('No life left').load();
             }{
                 player.lives -= 1;
                 $('.lives > i:last-child').remove();
@@ -53,7 +53,7 @@ class Player{
     update(){
         if(this.ReachedRiver()){
             this.winCounter();
-            $('#won').css('display', 'block');
+            new Modal('Congratualtions! You Won').load();
         }
     }
 
@@ -108,6 +108,96 @@ class Player{
     }
 }
 
+class Modal{
+    constructor(conclusion){
+        this.conclusion = conclusion;
+    }
+
+    load(){
+        this.create();
+        this.open();
+        this.onRetry();
+    }
+
+    create(){
+        const layout =
+        `<!-- The Modal -->
+        <div class="gameOver">
+
+        <!-- Modal content -->
+        <div class="modal-content-game-over">
+            <div class="modal-header">
+                <h2>Game Over</h2>
+                <h3>${this.conclusion}</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Stats</h4>
+                <ul>
+                    <li>lives left: ${player.lives} </li>
+            </div>
+                <a class="retry waves-effect waves-light btn blue">Retry</a>
+        </div>`
+
+        $('#gameStarter').after(layout);
+    }
+
+    open(){
+        $('.gameOver').css('display', 'block');
+        console.log('open modal');
+    }
+
+    close(){
+        $('.gameOver').css('display', 'none');
+        this.destory();
+        console.log('close & destroy modal');
+    }
+
+    destory(){
+        $('.gameOver').remove();
+    }
+
+    resetGameSettings(){
+        $('#timer').timer('reset');
+        let hearts;
+        switch(player.lives){
+            case 0: hearts =
+            `<i class="material-icons">favorite</i>
+            <i class="material-icons">favorite</i>
+            <i class="material-icons">favorite</i>`;
+                break;
+            case 1: hearts =
+            `<i class="material-icons">favorite</i>
+            <i class="material-icons">favorite</i>`;
+                break;
+            case 2: hearts =
+            `<i class="material-icons">favorite</i>`;
+                break;
+        }
+        $('.lives').append( hearts );
+        player.lives = 3;
+        player.winCount = 0;
+    }
+
+    onRetry(){
+        $('.retry').click(() => {
+            this.close();
+            this.resetGameSettings();
+            console.log('on retry');
+        });
+    }
+
+    static startGameTimer(){
+        //Game Timer
+        $('#timer').timer({
+            countdown: true,
+            duration: '30s',    	// This will start the countdown from 30 seconds
+            callback: function() {	// This will execute after the duration has elapsed
+                console.log('Time up!');
+                new Modal('Times up!').load();
+            }
+        });
+    }
+}
 const player = new Player(200, 415);
 const e1 = new Enemy(-50, 235);
 const e2 = new Enemy(-50, 145);
@@ -119,6 +209,11 @@ const allEnemies = [e1, e2, e3];
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
+//Trigger when game starter modal closes
+$('.modal-close').click(function(){
+    $('#gameStarter').css('display', 'none');
+    Modal.startGameTimer();
+})
 
 
 // This listens for key presses and sends the keys to your
