@@ -112,6 +112,44 @@ class Modal{
     }
 
     init(){
+        //Add you own functionality here
+    }
+
+    create(){
+        //Add you own functionality here
+    }
+
+    open(){
+        $('#myModal').css('display', 'block');
+        console.log('onOpen');
+    }
+
+    close(){
+        $('#myModal').css('display', 'none');
+        console.log('onClose');
+        this.destroy();
+    }
+
+    destroy(){
+        $("#myModal").remove();
+        console.log('onDestroy');
+    }
+
+    closeModal(){
+        $('.modal-close').click(() => {
+            this.close();
+            console.log('closeModal');
+        })
+    }
+
+}
+
+class starterModal extends Modal{
+    constructor(modalName){
+        super(modalName);
+    }
+
+    init(){
         this.create();
         //Initialize image picker plugin
         $('select').imagepicker();
@@ -119,7 +157,7 @@ class Modal{
         $('.collapsible').collapsible();
         this.selectAvatar();
         this.open();
-        this.onStart();
+        this.closeModal();
     }
 
     create(){
@@ -179,29 +217,6 @@ class Modal{
                 player.imageUrl(imageUrl);
         });
     }
-
-    open(){
-        $('#myModal').css('display', 'block');
-        console.log('onOpen');
-    }
-
-    close(){
-        $('#myModal').css('display', 'none');
-        console.log('onClose');
-        this.destroy();
-    }
-
-    destroy(){
-        $("#myModal").remove();
-        console.log('onDestroy');
-    }
-
-    onStart(){
-        $('.modal-close').click(() => {
-            this.close();
-            console.log('onStart');
-        })
-    }
 }
 
 const player = new Player(200, 415);
@@ -211,7 +226,7 @@ const e3 = new Enemy(-50, 55);
 
 const allEnemies = [e1, e2, e3];
 
-new Modal('starterModal').init();
+new starterModal('starterModal').init();
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
