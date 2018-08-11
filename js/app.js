@@ -19,13 +19,19 @@ class Enemy{
 
         //check for player & enemy collision, if they collide reset the player to initial position
         if((this.x + 30 > player.x && this.x < player.x && this.y === player.y)){
-            if(player.lives === 1){
-                console.log('game over');
-            }{
+            /**
+             * @description Reduce life if player collides withe enemy,
+             * and show game over modal if user loses all lives
+             */
+            if(player.lives >= 0){
                 player.lives -= 1;
                 $('.lives > i:last-child').remove();
+                    if(player.lives === 0){
+                        console.log('game over');
+                }
             }
             console.log(player.lives + 'lives');
+            //Reset the player to its initial position on collison
             player.reset();
         }
     }
