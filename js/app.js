@@ -149,6 +149,61 @@ class Modal{
     }
 
 }
+class otherModal extends Modal{
+    constructor(modalName, title){
+        super(modalName);
+        this.title = title
+    }
+
+    init(){
+        this.create();
+        this.open();
+        this.closeModal();
+    }
+
+    create(){
+        const layout =
+        `<!-- The Modal -->
+        <div id="myModal" class="modal-game">
+          <!-- Modal content -->
+          <div class="modal-content-game">
+            <h4>Game Over</h4>
+            <h5>${this.title}</h5>
+            <h5>statistics</h5>
+            <p>${player.lives >1 ? `lives left: ${player.lives}` : `life left: ${player.lives}`}</p>
+            <a class="modal-close waves-effect waves-light btn grey">Play Again</a>
+          </div>
+        </div>`
+
+        $('#game-stats').after(layout);
+        console.log('onCreate');
+    }
+
+    resetLives(){
+        let hearts;
+        switch(player.lives){
+            case 0: hearts =
+            `<i class="material-icons">favorite</i>
+            <i class="material-icons">favorite</i>
+            <i class="material-icons">favorite</i>`;
+                break;
+            case 1: hearts =
+            `<i class="material-icons">favorite</i>
+            <i class="material-icons">favorite</i>`;
+                break;
+            case 2: hearts =
+            `<i class="material-icons">favorite</i>`;
+                break;
+        }
+        $('.lives').append( hearts );
+        player.lives = 3;
+    }
+
+    closeModal(){
+        super.closeModal();
+        this.resetLives();
+    }
+}
 
 class starterModal extends Modal{
     constructor(modalName){
