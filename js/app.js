@@ -142,6 +142,26 @@ class Modal{
         })
     }
 
+    resetLives(){
+        let hearts;
+        switch(player.lives){
+            case 0: hearts =
+            `<i class="material-icons">favorite</i>
+            <i class="material-icons">favorite</i>
+            <i class="material-icons">favorite</i>`;
+                break;
+            case 1: hearts =
+            `<i class="material-icons">favorite</i>
+            <i class="material-icons">favorite</i>`;
+                break;
+            case 2: hearts =
+            `<i class="material-icons">favorite</i>`;
+                break;
+        }
+        $('.lives').append( hearts );
+        player.lives = 3;
+    }
+
     startGameTimer(){
         console.log('start game timer');
         $('#timer').timer({
@@ -182,26 +202,6 @@ class otherModal extends Modal{
 
         $('#game-stats').after(layout);
         console.log('onCreate');
-    }
-
-    resetLives(){
-        let hearts;
-        switch(player.lives){
-            case 0: hearts =
-            `<i class="material-icons">favorite</i>
-            <i class="material-icons">favorite</i>
-            <i class="material-icons">favorite</i>`;
-                break;
-            case 1: hearts =
-            `<i class="material-icons">favorite</i>
-            <i class="material-icons">favorite</i>`;
-                break;
-            case 2: hearts =
-            `<i class="material-icons">favorite</i>`;
-                break;
-        }
-        $('.lives').append( hearts );
-        player.lives = 3;
     }
 
     closeModal(){
@@ -291,6 +291,8 @@ class starterModal extends Modal{
         $('.modal-close').click(() => {
             this.close();
             this.startGameTimer();
+            this.resetLives();
+            $('#timer').timer('reset');
             console.log('closeModal');
         })
     }
@@ -303,7 +305,12 @@ const e3 = new Enemy(-50, 55);
 
 const allEnemies = [e1, e2, e3];
 
-new starterModal('starterModal').init();
+new starterModal('Start Game').init();
+
+// Change Avatar on clicking the button
+$('.change-avatar').click(function(){
+    new starterModal('Change Avatar').init();
+})
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
