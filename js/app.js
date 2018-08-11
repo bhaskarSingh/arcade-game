@@ -142,6 +142,18 @@ class Modal{
         })
     }
 
+    startGameTimer(){
+        console.log('start game timer');
+        $('#timer').timer({
+            countdown: true,
+            duration: '30s',    	// This will start the countdown from 3 mins 40 seconds
+            callback: function() {	// This will execute after the duration has elapsed
+                new otherModal('Times up', 'Times Up, Try again!').init();
+                console.log('Time up!');
+            }
+        });
+    }
+
 }
 class otherModal extends Modal{
     constructor(modalName, title){
@@ -193,8 +205,12 @@ class otherModal extends Modal{
     }
 
     closeModal(){
-        super.closeModal();
-        this.resetLives();
+        $('.modal-close').click(() => {
+            this.close();
+            this.resetLives();
+            $('#timer').timer('reset');
+            console.log('closeModal');
+        })
     }
 }
 
@@ -269,6 +285,14 @@ class starterModal extends Modal{
                 console.log(imageUrl);
                 player.imageUrl(imageUrl);
         });
+    }
+
+    closeModal(){
+        $('.modal-close').click(() => {
+            this.close();
+            this.startGameTimer();
+            console.log('closeModal');
+        })
     }
 }
 

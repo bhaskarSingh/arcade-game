@@ -9,13 +9,13 @@
 // $('select').imagepicker();
 
 //Game Timer
-$('#timer').timer({
-    countdown: true,
-    duration: '30s',    	// This will start the countdown from 3 mins 40 seconds
-    callback: function() {	// This will execute after the duration has elapsed
-    	console.log('Time up!');
-    }
-});
+// $('#timer').timer({
+//     countdown: true,
+//     duration: '30s',    	// This will start the countdown from 3 mins 40 seconds
+//     callback: function() {	// This will execute after the duration has elapsed
+//     	console.log('Time up!');
+//     }
+// });
 //Change Avatar
 // $('.change-avatar').click(function(){
 //     $('#gameStarter').css('display', 'block');
