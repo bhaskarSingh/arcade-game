@@ -106,12 +106,112 @@ class Player{
     }
 }
 
+class Modal{
+    constructor(modalName){
+        this.modalName = modalName;
+    }
+
+    init(){
+        this.create();
+        //Initialize image picker plugin
+        $('select').imagepicker();
+        //Initialize game instructions guidance collapsible
+        $('.collapsible').collapsible();
+        this.selectAvatar();
+        this.open();
+        this.onStart();
+    }
+
+    create(){
+        const layout =
+        `<!-- The Modal -->
+        <div id="myModal" class="modal-game">
+        
+          <!-- Modal content -->
+          <div class="modal-content-game">
+            <h4>Welcome to Arcade Classic Game</h4>
+            <h5>Select your avatar</h5>
+            <select class="image-picker" >
+                <option data-img-src="images/char-boy.png" value="1">Char Boy</option>
+                <option data-img-src="images/char-horn-girl.png" value="2">Char Horn Girl</option>
+                <option data-img-src="images/char-pink-girl.png" value="3">Char Pink Girl</option>
+                <option data-img-src="images/char-princess-girl.png" value="4">Char Princess Girl</option>
+            </select>
+
+            <!-- Instructions on how to play the game -->
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">Instructions on how to play the game</div>
+                    <div class="collapsible-body">
+                        <span>
+                        The game will be of 30 seconds and in that, you have to reach to the riverside to win the game
+                        and you will have 3 lives and there will be few gems, on taking them successfully you will get
+                        an extra life.
+                        </span>
+                    </div>
+                </li>
+            </ul>
+            <a href="#" class="modal-close waves-effect waves-green btn-flat center">Start Game</a>
+          </div>
+        </div>`
+
+        $('#game-stats').after(layout);
+        console.log('onCreate');
+    }
+
+    selectAvatar(){
+        //set avatar according to user choice
+        $('select').on('change',function(){
+            let val = $('select').val();
+            //By default set char boy as avatar
+            let imageUrl = 'images/char-boy.png'
+                switch(parseInt(val)){
+                    case 1: imageUrl = 'images/char-boy.png';
+                        break;
+                    case 2: imageUrl = 'images/char-horn-girl.png';
+                        break;
+                    case 3: imageUrl = 'images/char-pink-girl.png';
+                        break;
+                    case 4: imageUrl = 'images/char-princess-girl.png';
+                        break;
+                }
+                console.log(imageUrl);
+                player.imageUrl(imageUrl);
+        });
+    }
+
+    open(){
+        $('#myModal').css('display', 'block');
+        console.log('onOpen');
+    }
+
+    close(){
+        $('#myModal').css('display', 'none');
+        console.log('onClose');
+        this.destroy();
+    }
+
+    destroy(){
+        $("#myModal").remove();
+        console.log('onDestroy');
+    }
+
+    onStart(){
+        $('.modal-close').click(() => {
+            this.close();
+            console.log('onStart');
+        })
+    }
+}
+
 const player = new Player(200, 415);
 const e1 = new Enemy(-50, 235);
 const e2 = new Enemy(-50, 145);
 const e3 = new Enemy(-50, 55);
 
 const allEnemies = [e1, e2, e3];
+
+new Modal('starterModal').init();
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
