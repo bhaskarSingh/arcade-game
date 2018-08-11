@@ -27,6 +27,7 @@ class Enemy{
                 player.lives -= 1;
                 $('.lives > i:last-child').remove();
                     if(player.lives === 0){
+                        new otherModal('Game Over', 'No lives left, better luck next time!').init();
                         console.log('game over');
                 }
             }
@@ -51,27 +52,20 @@ class Player{
         this.x = x;
         this.y = y;
         this.lives = 3;
-        this.winCount = 0;
     }
 
     update(){
-        if(this.numOfTimesReachedRiver() === true){
-            this.winCounter();
-            console.log(this.winCount);
-        }
+        this.onReachingRiverSide();
     }
 
-    numOfTimesReachedRiver(){
+    onReachingRiverSide(){
         const TOP_Y = -35;
         if(this.y === TOP_Y && (this.x >= 0 & this.x <= 400)){
+            new otherModal('Won', 'You Won! Congratulations').init();
             console.log('reached river');
             this.reset();
             return true;
         }
-    }
-
-    winCounter(){
-        this.winCount += 1;
     }
 
     imageUrl(url){
