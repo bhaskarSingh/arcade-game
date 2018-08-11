@@ -157,8 +157,7 @@ class otherModal extends Modal{
 
     create(){
         const layout =
-        `<!-- The Modal -->
-        <div id="myModal" class="modal-game">
+        `<div id="myModal" class="modal-game">
           <!-- Modal content -->
           <div class="modal-content-game">
             <h4>Game Over</h4>
@@ -217,8 +216,7 @@ class starterModal extends Modal{
 
     create(){
         const layout =
-        `<!-- The Modal -->
-        <div id="myModal" class="modal-game">
+        `<div id="myModal" class="modal-game">
         
           <!-- Modal content -->
           <div class="modal-content-game">
