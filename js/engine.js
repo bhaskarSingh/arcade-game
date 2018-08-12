@@ -9,7 +9,7 @@
  * drawn but that is not the case. What's really happening is the entire "scene"
  * is being drawn over and over, presenting the illusion of animation.
  *
- * This engine makes the canvas' context (ctx) object globally available to make 
+ * This engine makes the canvas' context (ctx) object globally available to make
  * writing app.js a little simpler to work with.
  */
 
@@ -24,8 +24,8 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
-    canvas.width = 505;
-    canvas.height = 606;
+    canvas.width = 800;
+    canvas.height = 1306;
     doc.body.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
@@ -107,17 +107,25 @@ var Engine = (function(global) {
          * for that particular row of the game level.
          */
         var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
-            ],
-            numRows = 6,
-            numCols = 5,
-            row, col;
-        
+            'images/water-block.png',   // Top row is water
+            'images/stone-block.png',   // Row 1 of 12 of stone
+            'images/stone-block.png',   // Row 2 of 12 of stone
+            'images/stone-block.png',   // Row 3 of 12 of stone
+            'images/stone-block.png',   // Row 4 of 12 of stone
+            'images/stone-block.png',   // Row 5 of 12 of stone
+            'images/stone-block.png',   // Row 6 of 12 of stone
+            'images/stone-block.png',   // Row 7 of 12 of stone
+            'images/stone-block.png',   // Row 8 of 12 of stone
+            'images/stone-block.png',   // Row 9 of 12 of stone
+            'images/stone-block.png',   // Row 10 of 12 of stone
+            'images/stone-block.png',   // Row 11 of 12 of stone
+            'images/stone-block.png',   // Row 12 of 12 of stone
+            'images/grass-block.png',   // Row 1 of 2 of grass
+            'images/grass-block.png'    // Row 2 of 2 of grass
+        ],
+        numRows = 15,
+        numCols = 8,
+        row, col;
         // Before drawing, clear existing canvas
         ctx.clearRect(0,0,canvas.width,canvas.height)
 

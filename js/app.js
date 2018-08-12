@@ -15,7 +15,7 @@ class Enemy{
     // Update the enemy's position, required method for game
     // Parameter: dt, a time delta between ticks
     update(dt){
-        this.x >= 400 ? this.x = -50 : this.x += Math.round((Math.random() * 500)) * dt
+        this.x >= 800 ? this.x = -50 : this.x += Math.round((Math.random() * 500)) * dt
 
         //check for player & enemy collision, if they collide reset the player to initial position
         if((this.x + 30 > player.x && this.x < player.x && this.y === player.y)){
@@ -60,7 +60,7 @@ class Player{
 
     onReachingRiverSide(){
         const TOP_Y = -35;
-        if(this.y === TOP_Y && (this.x >= 0 & this.x <= 400)){
+        if(this.y === TOP_Y && (this.x >= 0 & this.x <= 700)){
             new otherModal('Won', 'You Won! Congratulations').init();
             console.log('reached river');
             this.reset();
@@ -86,7 +86,7 @@ class Player{
      */
     handleInput(key){
         //Edge values for player movements for grid layout of 505 by 606
-        const RIGHT_X = 400, LEFT_X = 0, TOP_Y = -35, DOWN_Y = 415;
+        const RIGHT_X = 700, LEFT_X = 0, TOP_Y = -35, DOWN_Y = 1135;
         /**
          * Move the player respective of keypresses if it isn't going
          * out of the game (i.e canvas layout)
@@ -105,7 +105,7 @@ class Player{
 
     reset(){
         this.x = 200;
-        this.y = 415;
+        this.y = 1045;
     }
 }
 class Modal{
@@ -303,7 +303,7 @@ class starterModal extends Modal{
     }
 }
 
-const player = new Player(200, 415);
+const player = new Player(200, 1045);
 const e1 = new Enemy(-50, 235);
 const e2 = new Enemy(-50, 145);
 const e3 = new Enemy(-50, 55);
