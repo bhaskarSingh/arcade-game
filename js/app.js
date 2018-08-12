@@ -25,7 +25,7 @@ class Enemy{
              */
             if(player.lives >= 0){
                 player.lives -= 1;
-                $('.lives > i:last-child').remove();
+                $('.lives > img:last-child').remove();
                     if(player.lives === 0){
                         new otherModal('Game Over', 'No lives left, better luck next time!').init();
                         console.log('game over');
@@ -146,16 +146,16 @@ class Modal{
         let hearts;
         switch(player.lives){
             case 0: hearts =
-            `<i class="material-icons">favorite</i>
-            <i class="material-icons">favorite</i>
-            <i class="material-icons">favorite</i>`;
+            `<img class="heart" src="images/Heart.png" alt="Heart">
+            <img class="heart" src="images/Heart.png" alt="Heart">
+            <img class="heart" src="images/Heart.png" alt="Heart">`
                 break;
             case 1: hearts =
-            `<i class="material-icons">favorite</i>
-            <i class="material-icons">favorite</i>`;
+            `<img class="heart" src="images/Heart.png" alt="Heart">
+            <img class="heart" src="images/Heart.png" alt="Heart">`
                 break;
             case 2: hearts =
-            `<i class="material-icons">favorite</i>`;
+            `<img class="heart" src="images/Heart.png" alt="Heart">`;
                 break;
         }
         $('.lives').append( hearts );

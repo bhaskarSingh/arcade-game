@@ -24,3 +24,8 @@ body {
     border: 1px solid #888;
     width: 550px; /* Could be more or less, depending on screen size */
 }
+
+.heart{
+    width: 30px;
+    height: 55px;
+}
