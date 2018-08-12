@@ -75,6 +75,9 @@ class Player{
     //Draw player on the screen
     render(){
         ctx.drawImage(Resources.get(this.avatar), this.x , this.y );
+        if(!(Modal.isOpen)){
+            window.scrollTo(this.x, this.y);
+        }
     }
 
     /**
@@ -108,6 +111,7 @@ class Player{
 class Modal{
     constructor(modalName){
         this.modalName = modalName;
+        Modal.isOpen;
     }
 
     init(){
@@ -120,11 +124,13 @@ class Modal{
 
     open(){
         $('#myModal').css('display', 'block');
+        Modal.isOpen = true;
         console.log('onOpen');
     }
 
     close(){
         $('#myModal').css('display', 'none');
+        Modal.isOpen = false;
         console.log('onClose');
         this.destroy();
     }
@@ -310,17 +316,6 @@ new starterModal('Start Game').init();
 $('.change-avatar').click(function(){
     new starterModal('Change Avatar').init();
 })
-
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-
-//Trigger when game starter modal closes
-$('.modal-close').click(function(){
-    $('#gameStarter').css('display', 'none');
-    Modal.startGameTimer();
-})
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
