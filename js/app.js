@@ -304,11 +304,13 @@ class starterModal extends Modal{
 }
 
 const player = new Player(200, 1045);
-const e1 = new Enemy(-50, 235);
-const e2 = new Enemy(-50, 145);
-const e3 = new Enemy(-50, 55);
+let enemies = [], enemyYPosition = 55;
 
-const allEnemies = [e1, e2, e3];
+for(let i = 0; i < 11; i++){
+    enemies.push(new Enemy(-50, enemyYPosition));
+    enemyYPosition += 90;
+}
+const allEnemies = [...enemies];
 
 new starterModal('Start Game').init();
 
