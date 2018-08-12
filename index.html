@@ -12,74 +12,16 @@
 </head>
 <body>
 
-    <div>
-        <h4 class="lives">Lives :
-            <i class="material-icons">favorite</i>
-            <i class="material-icons">favorite</i>
-            <i class="material-icons">favorite</i>
+    <div id="game-stats" >
+        <h4 class="lives">
+            <img class="heart" src="images/Heart.png" alt="Heart">
+            <img class="heart" src="images/Heart.png" alt="Heart">
+            <img class="heart" src="images/Heart.png" alt="Heart">
         </h4>
         <span>Timer: <div id="timer"></div> </span>
         <a class="change-avatar waves-effect waves-light btn blue">Change Avatar</a>
     </div>
-
-    <!-- Game Starter Modal Structure -->
-    <div id="gameStarter" class="modal">
-        <div class="modal-content">
-            <h4>Welcome to Arcade Classic Game</h4>
-            <h5>Select your avatar</h5>
-            <select class="image-picker" >
-                <option data-img-src="images/char-boy.png" value="1">Char Boy</option>
-                <option data-img-src="images/char-horn-girl.png" value="2">Char Horn Girl</option>
-                <option data-img-src="images/char-pink-girl.png" value="3">Char Pink Girl</option>
-                <option data-img-src="images/char-princess-girl.png" value="4">Char Princess Girl</option>
-            </select>
-        </div>
-        <!-- Instructions on how to play the game -->
-        <ul class="collapsible">
-            <li>
-                <div class="collapsible-header">Instructions on how to play the game</div>
-                <div class="collapsible-body">
-                    <span>
-                        The game will be of 30 seconds and in that, you have to reach to the riverside
-                        to win the game and you will have 3 lives to do that and there will be few gems, on taking
-                        them successfully you will get an extra life.
-                    </span>
-                </div>
-            </li>
-        </ul>
-
-        <div class="modal-footer">
-            <a href="#" class="modal-close waves-effect waves-green btn-flat center">Start Game</a>
-        </div>
-    </div>
-
-    <!-- Modal Trigger -->
-    <!-- <a class="modal-trigger waves-effect waves-light btn" href="#modal1">Modal</a> -->
-
-    <!-- Game Over Modal Structure -->
-    <!-- <div id="gameOver" class="modal modal-fixed-footer">
-        <div class="modal-content">
-        <h4>Game Over</h4>
-        <p class="times-up"></p>
-        <p class="no-life"></p>
-        <p>stats</p>
-        </div>
-        <div class="modal-footer">
-        <a href="#!" class="try-again-game waves-effect waves-green btn-flat ">Try Again</a>
-        </div>
-    </div> -->
-
-     <!-- Won Modal Structure -->
-     <!-- <div id="won" class="modal modal-fixed-footer">
-            <div class="modal-content">
-            <h4>Congratualtions! You Won</h4>
-            <p>stats</p>
-            </div>
-            <div class="modal-footer">
-            <a href="#!" class="try-again-game waves-effect waves-green btn-flat ">Play Again</a>
-            </div>
-    </div> -->
-
+    
     <!-- JQuery library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Timer plugin -->

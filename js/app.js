@@ -19,15 +19,20 @@ class Enemy{
 
         //check for player & enemy collision, if they collide reset the player to initial position
         if((this.x + 30 > player.x && this.x < player.x && this.y === player.y)){
-            if(player.lives === 1){
-                console.log('game over');
+            /**
+             * @description Reduce life if player collides withe enemy,
+             * and show game over modal if user loses all lives
+             */
+            if(player.lives >= 0){
                 player.lives -= 1;
-                new Modal('No life left').load();
-            }{
-                player.lives -= 1;
-                $('.lives > i:last-child').remove();
+                $('.lives > img:last-child').remove();
+                    if(player.lives === 0){
+                        new otherModal('Game Over', 'No lives left, better luck next time!').init();
+                        console.log('game over');
+                }
             }
             console.log(player.lives + 'lives');
+            //Reset the player to its initial position on collison
             player.reset();
         }
     }
@@ -47,27 +52,20 @@ class Player{
         this.x = x;
         this.y = y;
         this.lives = 3;
-        this.winCount = 0;
     }
 
     update(){
-        if(this.ReachedRiver()){
-            this.winCounter();
-            new Modal('Congratualtions! You Won').load();
-        }
+        this.onReachingRiverSide();
     }
 
-    ReachedRiver(){
+    onReachingRiverSide(){
         const TOP_Y = -35;
         if(this.y === TOP_Y && (this.x >= 0 & this.x <= 400)){
+            new otherModal('Won', 'You Won! Congratulations').init();
             console.log('reached river');
             this.reset();
             return true;
         }
-    }
-
-    winCounter(){
-        this.winCount += 1;
     }
 
     imageUrl(url){
@@ -107,103 +105,211 @@ class Player{
         this.y = 415;
     }
 }
-
 class Modal{
-    constructor(conclusion){
-        this.conclusion = conclusion;
+    constructor(modalName){
+        this.modalName = modalName;
     }
 
-    load(){
-        this.create();
-        this.open();
-        this.onRetry();
+    init(){
+        //Add you own functionality here
     }
 
     create(){
-        const layout =
-        `<!-- The Modal -->
-        <div class="gameOver">
-
-        <!-- Modal content -->
-        <div class="modal-content-game-over">
-            <div class="modal-header">
-                <h2>Game Over</h2>
-                <h3>${this.conclusion}</h3>
-            </div>
-            <div class="modal-body">
-                <h4>Stats</h4>
-                <ul>
-                    <li>lives left: ${player.lives} </li>
-            </div>
-                <a class="retry waves-effect waves-light btn blue">Retry</a>
-        </div>`
-
-        $('#gameStarter').after(layout);
+        //Add you own functionality here
     }
 
     open(){
-        $('.gameOver').css('display', 'block');
-        console.log('open modal');
+        $('#myModal').css('display', 'block');
+        console.log('onOpen');
     }
 
     close(){
-        $('.gameOver').css('display', 'none');
-        this.destory();
-        console.log('close & destroy modal');
+        $('#myModal').css('display', 'none');
+        console.log('onClose');
+        this.destroy();
     }
 
-    destory(){
-        $('.gameOver').remove();
+    destroy(){
+        $("#myModal").remove();
+        console.log('onDestroy');
     }
 
-    resetGameSettings(){
-        $('#timer').timer('reset');
+    closeModal(){
+        $('.modal-close').click(() => {
+            this.close();
+            console.log('closeModal');
+        })
+    }
+
+    resetLives(){
         let hearts;
         switch(player.lives){
             case 0: hearts =
-            `<i class="material-icons">favorite</i>
-            <i class="material-icons">favorite</i>
-            <i class="material-icons">favorite</i>`;
+            `<img class="heart" src="images/Heart.png" alt="Heart">
+            <img class="heart" src="images/Heart.png" alt="Heart">
+            <img class="heart" src="images/Heart.png" alt="Heart">`
                 break;
             case 1: hearts =
-            `<i class="material-icons">favorite</i>
-            <i class="material-icons">favorite</i>`;
+            `<img class="heart" src="images/Heart.png" alt="Heart">
+            <img class="heart" src="images/Heart.png" alt="Heart">`
                 break;
             case 2: hearts =
-            `<i class="material-icons">favorite</i>`;
+            `<img class="heart" src="images/Heart.png" alt="Heart">`;
                 break;
         }
         $('.lives').append( hearts );
         player.lives = 3;
-        player.winCount = 0;
     }
 
-    onRetry(){
-        $('.retry').click(() => {
-            this.close();
-            this.resetGameSettings();
-            console.log('on retry');
-        });
-    }
-
-    static startGameTimer(){
-        //Game Timer
+    startGameTimer(){
+        console.log('start game timer');
         $('#timer').timer({
             countdown: true,
-            duration: '30s',    	// This will start the countdown from 30 seconds
+            duration: '30s',    	// This will start the countdown from 3 mins 40 seconds
             callback: function() {	// This will execute after the duration has elapsed
+                new otherModal('Times up', 'Times Up, Try again!').init();
                 console.log('Time up!');
-                new Modal('Times up!').load();
             }
         });
     }
+
 }
+class otherModal extends Modal{
+    constructor(modalName, title){
+        super(modalName);
+        this.title = title
+    }
+
+    init(){
+        this.create();
+        this.open();
+        this.closeModal();
+    }
+
+    create(){
+        const layout =
+        `<div id="myModal" class="modal-game">
+          <!-- Modal content -->
+          <div class="modal-content-game">
+            <h4>Game Over</h4>
+            <h5>${this.title}</h5>
+            <h5>statistics</h5>
+            <p>${player.lives >1 ? `lives left: ${player.lives}` : `life left: ${player.lives}`}</p>
+            <a class="modal-close waves-effect waves-light btn grey">Play Again</a>
+          </div>
+        </div>`
+
+        $('#game-stats').after(layout);
+        console.log('onCreate');
+    }
+
+    closeModal(){
+        $('.modal-close').click(() => {
+            this.close();
+            this.resetLives();
+            $('#timer').timer('reset');
+            console.log('closeModal');
+        })
+    }
+}
+
+class starterModal extends Modal{
+    constructor(modalName){
+        super(modalName);
+    }
+
+    init(){
+        this.create();
+        //Initialize image picker plugin
+        $('select').imagepicker();
+        //Initialize game instructions guidance collapsible
+        $('.collapsible').collapsible();
+        this.selectAvatar();
+        this.open();
+        this.closeModal();
+    }
+
+    create(){
+        const layout =
+        `<div id="myModal" class="modal-game">
+        
+          <!-- Modal content -->
+          <div class="modal-content-game">
+            <h4>Welcome to Arcade Classic Game</h4>
+            <h5>Select your avatar</h5>
+            <select class="image-picker" >
+                <option data-img-src="images/char-boy.png" value="1">Char Boy</option>
+                <option data-img-src="images/char-horn-girl.png" value="2">Char Horn Girl</option>
+                <option data-img-src="images/char-pink-girl.png" value="3">Char Pink Girl</option>
+                <option data-img-src="images/char-princess-girl.png" value="4">Char Princess Girl</option>
+            </select>
+
+            <!-- Instructions on how to play the game -->
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">Instructions on how to play the game</div>
+                    <div class="collapsible-body">
+                        <span>
+                        The game will be of 30 seconds and in that, you have to reach to the riverside to win the game
+                        and you will have 3 lives and there will be few gems, on taking them successfully you will get
+                        an extra life.
+                        </span>
+                    </div>
+                </li>
+            </ul>
+            <a href="#" class="modal-close waves-effect waves-green btn-flat center">Start Game</a>
+          </div>
+        </div>`
+
+        $('#game-stats').after(layout);
+        console.log('onCreate');
+    }
+
+    selectAvatar(){
+        //set avatar according to user choice
+        $('select').on('change',function(){
+            let val = $('select').val();
+            //By default set char boy as avatar
+            let imageUrl = 'images/char-boy.png'
+                switch(parseInt(val)){
+                    case 1: imageUrl = 'images/char-boy.png';
+                        break;
+                    case 2: imageUrl = 'images/char-horn-girl.png';
+                        break;
+                    case 3: imageUrl = 'images/char-pink-girl.png';
+                        break;
+                    case 4: imageUrl = 'images/char-princess-girl.png';
+                        break;
+                }
+                console.log(imageUrl);
+                player.imageUrl(imageUrl);
+        });
+    }
+
+    closeModal(){
+        $('.modal-close').click(() => {
+            this.close();
+            this.startGameTimer();
+            this.resetLives();
+            $('#timer').timer('reset');
+            console.log('closeModal');
+        })
+    }
+}
+
 const player = new Player(200, 415);
 const e1 = new Enemy(-50, 235);
 const e2 = new Enemy(-50, 145);
 const e3 = new Enemy(-50, 55);
 
 const allEnemies = [e1, e2, e3];
+
+new starterModal('Start Game').init();
+
+// Change Avatar on clicking the button
+$('.change-avatar').click(function(){
+    new starterModal('Change Avatar').init();
+})
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
