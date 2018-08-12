@@ -2,7 +2,7 @@
  * @description Enemy class to create enemy object
  */
 class Enemy{
-    constructor(x = 0,y = 0){
+    constructor(x = 0,y = 0, speed = 500){
         // The image/sprite for our enemies, this uses
         // a helper we've provided to easily load images
         this.sprite = 'images/enemy-bug.png';
@@ -10,12 +10,13 @@ class Enemy{
         this.x = x;
         //Position of enemy object on y axis
         this.y = y;
+        this.speed = speed;
     }
 
     // Update the enemy's position, required method for game
     // Parameter: dt, a time delta between ticks
     update(dt){
-        this.x >= 800 ? this.x = -50 : this.x += Math.round((Math.random() * 500)) * dt
+        this.x >= 800 ? this.x = -50 : this.x += Math.round((Math.random() * this.speed)) * dt
 
         //check for player & enemy collision, if they collide reset the player to initial position
         if((this.x + 30 > player.x && this.x < player.x && this.y === player.y)){
@@ -305,10 +306,14 @@ class starterModal extends Modal{
 
 const player = new Player(200, 1045);
 let enemies = [], enemyYPosition = 55;
-
+/**
+ * create enemies object with random speed
+ */
 for(let i = 0; i < 11; i++){
-    enemies.push(new Enemy(-50, enemyYPosition));
+    const randomSpeed = Math.floor((Math.random() * 1000) + 450);
+    enemies.push(new Enemy(-50, enemyYPosition, randomSpeed));
     enemyYPosition += 90;
+    console.log(randomSpeed);
 }
 const allEnemies = [...enemies];
 
