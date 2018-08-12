@@ -190,7 +190,13 @@ class otherModal extends Modal{
     init(){
         this.create();
         this.open();
+        this.onClickSave();
         this.closeModal();
+    }
+
+    open(){
+        super.open();
+        $('.input-field').css('display', 'block');
     }
 
     create(){
@@ -202,6 +208,15 @@ class otherModal extends Modal{
             <h5>${this.title}</h5>
             <h5>statistics</h5>
             <p>${player.lives >1 ? `lives left: ${player.lives}` : `life left: ${player.lives}`}</p>
+            ${this.modalName === 'Won' ?
+            `<div class="input-field">
+                <input id="name" type="text" class="validate">
+                <label for="name">Enter your name to save progress</label>
+                <a class="save-progress waves-effect waves-light btn green">Save</a>
+            </div>`
+                :
+            '<p> "Keep going, Tough situations build strong people in the end.”</p> '
+            }
             <a class="modal-close waves-effect waves-light btn grey">Play Again</a>
           </div>
         </div>`
@@ -216,6 +231,27 @@ class otherModal extends Modal{
             this.resetLives();
             $('#timer').timer('reset');
             console.log('closeModal');
+        })
+    }
+
+    onClickSave(){
+        $('.save-progress').click(function(){
+            const name = $('#name').val();
+            if(name != ''){
+                const lives = `${player.lives >1 ? `lives left: ${player.lives}` : `life left: ${player.lives}`}`
+                const person = {
+                    name,
+                    lives
+                }
+                let progress = []
+                progress = JSON.parse( localStorage.getItem( 'progress' ));
+                progress.push(person)
+                localStorage.setItem( 'progress', JSON.stringify(progress) );
+                $('.input-field').css('display', 'none');
+                console.log(JSON.parse( localStorage.getItem( 'progress' ) ));
+            }else{
+                M.toast({html: 'Please! Enter your name'});
+            }
         })
     }
 }
