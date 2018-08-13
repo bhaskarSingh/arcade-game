@@ -59,6 +59,10 @@ class Player{
         this.onReachingRiverSide();
     }
 
+    /**
+     * @description On reaching riverside open won modal
+     * & reset the player to initial position
+     */
     onReachingRiverSide(){
         const TOP_Y = -35;
         if(this.y === TOP_Y && (this.x >= 0 & this.x <= 700)){
@@ -69,6 +73,10 @@ class Player{
         }
     }
 
+    /**
+     * @description Set player avatar accoring to the image url
+     * @param {String} url --> player avatar image url
+     */
     imageUrl(url){
         this.avatar = url;
     }
@@ -104,14 +112,23 @@ class Player{
         console.log(this.x, this.y);
     }
 
+    /**
+     * @description Reset the player to its initial position
+     */
     reset(){
         this.x = 200;
         this.y = 1045;
     }
 }
+
+/**
+ * @description Base Modal class for other modal classes
+ */
 class Modal{
+    //Modal Name to identify the type of modal
     constructor(modalName){
         this.modalName = modalName;
+        //Check whether modal is open or not
         Modal.isOpen;
     }
 
@@ -141,6 +158,9 @@ class Modal{
         console.log('onDestroy');
     }
 
+    /**
+     * close the modal & destroy it as well
+     */
     closeModal(){
         $('.modal-close').click(() => {
             this.close();
@@ -148,6 +168,10 @@ class Modal{
         })
     }
 
+    /**
+     * @description Reset the lives heart images according to
+     * the lives left
+     */
     resetLives(){
         let hearts;
         switch(player.lives){
@@ -168,6 +192,9 @@ class Modal{
         player.lives = 3;
     }
 
+    /**
+     * @description Game timer counter
+     */
     startGameTimer(){
         console.log('start game timer');
         $('#timer').timer({
@@ -181,6 +208,10 @@ class Modal{
     }
 
 }
+
+/**
+ * @description Base class modal for modal like on winning, game over, times up
+ */
 class otherModal extends Modal{
     constructor(modalName, title){
         super(modalName);
@@ -199,6 +230,10 @@ class otherModal extends Modal{
         $('.input-field').css('display', 'block');
     }
 
+    /**
+     * @description show title according to the modal & show input
+     * field with option to save the progress if user wins the game
+     */
     create(){
         const layout =
         `<div id="myModal" class="modal-game">
@@ -225,6 +260,10 @@ class otherModal extends Modal{
         console.log('onCreate');
     }
 
+    /**
+     * @description On closeing the modal reset the hearts(lives)
+     * & timer and also destroy the modal
+     */
     closeModal(){
         $('.modal-close').click(() => {
             this.close();
@@ -234,9 +273,15 @@ class otherModal extends Modal{
         })
     }
 
+    /**
+     * @description If user wins the game then on clicking the save progess
+     * button save the progress and remove the element so that there is no
+     * double entry
+     */
     onClickSave(){
         $('.save-progress').click(function(){
             const name = $('#name').val();
+            //only save user has enter a name
             if(name != ''){
                 const score = player.lives * 100;
                 const person = {
@@ -245,6 +290,7 @@ class otherModal extends Modal{
                 }
                 let progress = []
                 const arr = JSON.parse( localStorage.getItem( 'progress' ))
+                //check if previously any data was saved or not
                 if(arr != null){
                     progress = arr;
                 }
@@ -312,6 +358,7 @@ class starterModal extends Modal{
         console.log('onCreate');
     }
 
+    //Set avatar accoring to the selection by user
     selectAvatar(){
         //set avatar according to user choice
         $('select').on('change',function(){
@@ -333,17 +380,25 @@ class starterModal extends Modal{
         });
     }
 
+    /**
+     * @description close the modal and start the timer,
+     * reset the lives
+     */
     closeModal(){
         $('.modal-close').click(() => {
             this.close();
             this.startGameTimer();
             this.resetLives();
+            //reset the timer every time starter modal is closed TODO: Remove this
             $('#timer').timer('reset');
             console.log('closeModal');
         })
     }
 }
 
+/**
+ * @description scoreboard class
+ */
 class ScoreBoard extends Modal {
     constructor(modalName){
         super(modalName);
@@ -355,6 +410,9 @@ class ScoreBoard extends Modal {
         this.closeModal();
     }
 
+    /**
+     * @description create scoreboard layout
+     */
     create(){
         const layout  =
         `<div id="myModal" class="modal-game">
@@ -380,6 +438,10 @@ class ScoreBoard extends Modal {
         $('#game-stats').after(layout);
     }
 
+    /**
+     * @description Get the game progress data which was stored locally,
+     * in table row format
+     */
     getData(){
         let arr = JSON.parse( localStorage.getItem( 'progress' ));
         if(arr != null){
@@ -409,6 +471,7 @@ for(let i = 0; i < 11; i++){
 }
 const allEnemies = [...enemies];
 
+//Load starter modal as soon as the page loads
 new starterModal('Start Game').init();
 
 // Change Avatar on clicking the button
@@ -416,6 +479,7 @@ $('.change-avatar').click(function(){
     new starterModal('Change Avatar').init();
 })
 
+//On clicking scoreboard button open scoreboard modal
 $('.scoreboard').click(function(){
     new ScoreBoard().init();
 })
