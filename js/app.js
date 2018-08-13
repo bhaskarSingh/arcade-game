@@ -109,6 +109,8 @@ class Player{
                 break;
             case 'left': this.x !== LEFT_X ?  this.x -= 100: this.x;
         }
+        //keep the focus on player as it moves
+        window.scrollTo(player.x, player.y);
         console.log(this.x, this.y);
     }
 
@@ -118,6 +120,7 @@ class Player{
     reset(){
         this.x = 200;
         this.y = 1045;
+        window.scrollTo(player.x, player.y);
     }
 }
 
