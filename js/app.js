@@ -76,9 +76,9 @@ class Player{
     //Draw player on the screen
     render(){
         ctx.drawImage(Resources.get(this.avatar), this.x , this.y );
-        if(!(Modal.isOpen)){
-            window.scrollTo(this.x, this.y);
-        }
+        // if(!(Modal.isOpen)){
+        //     window.scrollTo(this.x, this.y);
+        // }
     }
 
     /**
@@ -238,10 +238,10 @@ class otherModal extends Modal{
         $('.save-progress').click(function(){
             const name = $('#name').val();
             if(name != ''){
-                const lives = `${player.lives >1 ? `lives left: ${player.lives}` : `life left: ${player.lives}`}`
+                const score = player.lives * 100;
                 const person = {
                     name,
-                    lives
+                    score
                 }
                 let progress = []
                 progress = JSON.parse( localStorage.getItem( 'progress' ));
@@ -340,6 +340,56 @@ class starterModal extends Modal{
     }
 }
 
+class ScoreBoard extends Modal {
+    constructor(modalName){
+        super(modalName);
+    }
+
+    init(){
+        this.create();
+        this.open();
+        this.closeModal();
+    }
+
+    create(){
+        const layout  =
+        `<div id="myModal" class="modal-game">
+          <!-- Modal content -->
+          <div class="modal-content-game">
+            <h4>Score Board</h4>
+            <table>
+            <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Score</th>
+              </tr>
+            </thead>
+
+            <tbody>
+                ${this.getData()}
+            </tbody>
+          </table>
+            <a class="modal-close waves-effect waves-light btn grey">Close</a>
+          </div>
+        </div>`
+
+        $('#game-stats').after(layout);
+    }
+
+    getData(){
+        let arr = JSON.parse( localStorage.getItem( 'progress' ));
+        const data = arr.map((item) => {
+            return (
+                `<tr>
+                    <td>${item.name}</td>
+                    <td>${item.score}</td>
+                </tr>`
+            )
+        });
+        return data;
+    }
+}
+
 const player = new Player(200, 1045);
 let enemies = [], enemyYPosition = 55;
 /**
@@ -360,6 +410,9 @@ $('.change-avatar').click(function(){
     new starterModal('Change Avatar').init();
 })
 
+$('.scoreboard').click(function(){
+    new ScoreBoard().init();
+})
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
