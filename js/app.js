@@ -244,7 +244,11 @@ class otherModal extends Modal{
                     score
                 }
                 let progress = []
-                progress = JSON.parse( localStorage.getItem( 'progress' ));
+                const arr = JSON.parse( localStorage.getItem( 'progress' ))
+                if(arr != null){
+                    progress = arr;
+                }
+                console.log(progress);
                 progress.push(person)
                 localStorage.setItem( 'progress', JSON.stringify(progress) );
                 $('.input-field').css('display', 'none');
@@ -378,15 +382,17 @@ class ScoreBoard extends Modal {
 
     getData(){
         let arr = JSON.parse( localStorage.getItem( 'progress' ));
-        const data = arr.map((item) => {
-            return (
-                `<tr>
-                    <td>${item.name}</td>
-                    <td>${item.score}</td>
-                </tr>`
-            )
-        });
-        return data;
+        if(arr != null){
+            const data = arr.map((item) => {
+                return (
+                    `<tr>
+                        <td>${item.name}</td>
+                        <td>${item.score}</td>
+                    </tr>`
+                )
+            });
+            return data;
+        }
     }
 }
 
